@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.remote-assets/
+.vite-inspect/
+.idea/
+.vscode/
+coverage/
+*.log

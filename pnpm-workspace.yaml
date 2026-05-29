@@ -1,3 +1,3 @@
 patchedDependencies:
-  '@slidev/cli@52.15.2': patches/@slidev__cli@52.15.2.patch
+  "@slidev/cli@52.15.2": patches/@slidev__cli@52.15.2.patch
 shamefullyHoist: true
