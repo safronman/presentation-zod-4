@@ -1,645 +1,463 @@
 ---
-# try also 'default' to start simple
 theme: seriph
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
-# some information about your slides (markdown enabled)
-title: Welcome to Slidev
+title: Что нового в Zod 4
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
+  ## Что нового в Zod 4
 
-  Learn more at [Sli.dev](https://sli.dev)
-# apply UnoCSS classes to the current slide
-class: text-center
-# https://sli.dev/features/drawing
+  Доклад для разработчиков о ключевых изменениях Zod 4:
+  производительность, TypeScript, Zod Mini, JSON Schema, metadata registry,
+  file schemas, versioning и новые API.
+class: text-left
 drawings:
   persist: false
-# slide transition: https://sli.dev/guide/animations.html#slide-transitions
 transition: slide-left
-# enable Comark Syntax: https://comark.dev/syntax/markdown
 comark: true
-# duration of the presentation
 duration: 35min
+lineNumbers: true
 ---
 
-# Welcome to Slidev
+# Что нового в Zod 4
 
-Presentation slides for developers
+Доклад для разработчиков: что изменилось, зачем это важно и как выглядит код.
 
-<div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
-  Press Space for next page <carbon:arrow-right />
+<div class="mt-12 grid grid-cols-3 gap-4 text-center">
+  <div class="rounded border border-main p-4">
+    <div class="text-3xl font-bold">14.7x</div>
+    <div class="opacity-70">быстрее строки</div>
+  </div>
+  <div class="rounded border border-main p-4">
+    <div class="text-3xl font-bold">-57%</div>
+    <div class="opacity-70">gzip bundle</div>
+  </div>
+  <div class="rounded border border-main p-4">
+    <div class="text-3xl font-bold">v3 + v4</div>
+    <div class="opacity-70">параллельные импорты</div>
+  </div>
 </div>
 
-<div class="abs-br m-6 text-xl">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="slidev-icon-btn">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
-    <carbon:logo-github />
-  </a>
-</div>
-
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
-
 ---
-transition: fade-out
+layout: two-cols-header
 ---
 
-# What is Slidev?
+# Главная идея Zod 4
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
+Zod 4 не пытается поменять привычную модель работы. Он сохраняет знакомый API, но
+переписывает внутренности: быстрее парсит, меньше нагружает TypeScript и лучше
+подходит для production bundle.
 
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - themes can be shared and re-used as npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embed Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-  <br>
-  <br>
+::left::
 
-Read more about [Why Slidev?](https://sli.dev/guide/why)
+## Что улучшается
 
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/features/slide-scope-style
--->
+<v-clicks>
 
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
+- производительность runtime-парсинга
+- скорость и устойчивость `tsc`
+- размер клиентского бандла
+- JSON Schema без сторонних пакетов
+- метаданные для документации и OpenAPI
 
-<!--
-Here is another comment.
--->
-
----
-transition: slide-up
-level: 2
----
-
-# Navigation
-
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/ui#navigation-bar)
-
-## Keyboard Shortcuts
-
-|                                                    |                             |
-| -------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                | next animation or slide     |
-| <kbd>left</kbd> / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                      | previous slide              |
-| <kbd>down</kbd>                                    | next slide                  |
-
-<!-- https://sli.dev/guide/animations.html#click-animation -->
-
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
----
-layout: two-cols
-layoutClass: gap-16
----
-
-# Table of contents
-
-You can use the `Toc` component to generate a table of contents for your slides:
-
-```html
-<Toc minDepth="1" maxDepth="2" />
-```
-
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
+</v-clicks>
 
 ::right::
 
-<Toc text-sm minDepth="1" maxDepth="2" />
+## Что остается знакомым
 
----
-layout: image-right
-image: https://cover.sli.dev
----
+```ts {all|1|3-6|8}
+import * as z from "zod";
 
-# Code
+const User = z.object({
+  name: z.string(),
+  age: z.number(),
+});
 
-Use code snippets and get the highlighting directly, and even types hover!
-
-```ts [filename-example.ts] {all|4|6|6-7|9|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-import { computed, ref } from "vue";
-
-const count = ref(0);
-const doubled = computed(() => count.value * 2);
-
-doubled.value = 2;
+User.parse({ name: "Alice", age: 30 });
 ```
 
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="342" color="#953" width="2" arrowSize="1" />
+---
 
-<!-- This allow you to embed external code blocks -->
+# 1. Парсинг стал быстрее
 
-<<< @/snippets/external.ts#snippet
+Переписанный движок парсинга дает кратный прирост без изменения API.
 
-<!-- Footer -->
+| Тип данных | Ускорение |
+| ---------- | --------- |
+| Строки     | 14.7x     |
+| Массивы    | 7.4x      |
+| Объекты    | 6.5x      |
 
-[Learn more](https://sli.dev/features/line-highlighting)
+```ts {all|3-6|8}
+// Zod 3 и Zod 4: код выглядит одинаково.
+// Разница находится внутри библиотеки.
+const schema = z.object({
+  name: z.string(),
+  age: z.number(),
+});
 
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
+schema.parse({ name: "Alice", age: 30 });
+```
 
 <!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
+Акцент: для большинства пользователей это бесплатное ускорение после обновления.
 -->
 
 ---
-level: 2
+layout: two-cols-header
 ---
 
-# Shiki Magic Move
+# 2. TypeScript-компилятору стало легче
 
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
+В Zod 3 цепочки `.extend()` и `.omit()` могли резко увеличивать число инстанциаций
+типов. В Zod 4 эта нагрузка существенно снижена.
 
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
+::left::
 
-````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: "John Doe",
-  books: ["Vue 2 - Advanced Guide", "Vue 3 - Basic Guide", "Vue 4 - The Mystery"],
+## Было: Zod 3
+
+```ts {all|4-7|8}
+import * as z from "zod";
+
+const a = z.object({ a: z.string(), b: z.string() });
+const b = a.omit({ a: true });
+const c = b.extend({ a: z.string() });
+const d = c.omit({ a: true });
+
+// Дальше: медленная компиляция
+// или ошибка "Possibly infinite"
+```
+
+::right::
+
+## Стало: Zod 4
+
+```ts {all|4-8|10}
+import * as z from "zod";
+
+const a = z.object({ a: z.string(), b: z.string() });
+const b = a.omit({ a: true });
+const c = b.extend({ a: z.string() });
+const d = c.omit({ a: true });
+const e = d.extend({ a: z.string() });
+
+// Те же цепочки, но tsc работает быстрее
+```
+
+---
+
+# 3. Меньше размер бандла
+
+Для минимального скрипта с `z.boolean()` gzip-размер заметно сократился.
+
+```mermaid
+xychart-beta
+  title "Bundle size, gzip"
+  x-axis ["Zod 3", "Zod 4"]
+  y-axis "KB" 0 --> 14
+  bar [12.47, 5.36]
+```
+
+Главный вывод: меньше JavaScript в браузере без переписывания пользовательского кода.
+
+---
+layout: two-cols-header
+---
+
+# 4. Zod Mini
+
+`zod/mini` — новый ультралегкий вариант с функциональным API. Он лучше
+tree-shakes и особенно полезен на фронтенде, где важен каждый килобайт.
+
+::left::
+
+## Обычный API
+
+```ts {all|3|4|5}
+import * as z from "zod";
+
+const schema = z.string().optional();
+const arr = z.array(z.string()).min(1).max(10);
+const obj = z.object({ name: z.string() }).extend({
+  age: z.number(),
 });
 ```
 
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: "John Doe",
-        books: ["Vue 2 - Advanced Guide", "Vue 3 - Basic Guide", "Vue 4 - The Mystery"],
-      },
-    };
+::right::
+
+## Zod Mini
+
+```ts {all|3|4|5}
+import * as z from "zod/mini";
+
+const schema = z.optional(z.string());
+const arr = z.array(z.string()).check(z.minLength(1), z.maxLength(10));
+const obj = z.extend(z.object({ name: z.string() }), {
+  age: z.number(),
+});
+```
+
+---
+
+# Zod Mini: что важно запомнить
+
+<v-clicks>
+
+- `zod/mini` использует функциональный стиль вместо цепочек методов.
+- Методы парсинга остаются привычными: `.parse()`, `.safeParse()`, `.parseAsync()`.
+- Для минимального скрипта размер около **2 KB gzip**.
+- Это примерно в **6.6 раза меньше**, чем Zod 3 в аналогичном сценарии.
+
+</v-clicks>
+
+```ts {all|3|5}
+import * as z from "zod/mini";
+
+const User = z.object({ name: z.string() });
+
+User.parse({ name: "Alice" });
+```
+
+---
+layout: two-cols-header
+---
+
+# 5. JSON Schema теперь встроен
+
+Раньше для генерации JSON Schema нужен был отдельный пакет. В Zod 4 это часть
+основного API.
+
+::left::
+
+## Было: Zod 3
+
+```ts {all|2|9}
+import * as z from "zod";
+import { zodToJsonSchema } from "zod-to-json-schema";
+
+const schema = z.object({
+  name: z.string(),
+  age: z.number().int().min(0),
+});
+
+const jsonSchema = zodToJsonSchema(schema);
+```
+
+::right::
+
+## Стало: Zod 4
+
+```ts {all|1|8}
+import * as z from "zod";
+
+const schema = z.object({
+  name: z.string(),
+  age: z.number().int().min(0),
+});
+
+const jsonSchema = z.toJSONSchema(schema);
+```
+
+---
+
+# 6. Metadata registry
+
+Zod 4 добавляет реестр метаданных для схем. Это удобно, когда схема используется не
+только для валидации, но и для генерации документации.
+
+```ts {all|3|5-8|10-13|16}
+import * as z from "zod";
+
+const registry = new z.ZodRegistry<{
+  description: string;
+  example?: unknown;
+}>();
+
+const UserSchema = z.object({
+  name: z.string(),
+  age: z.number(),
+});
+
+registry.add(UserSchema, {
+  description: "Схема пользователя",
+  example: { name: "Alice", age: 30 },
+});
+
+const nameSchema = z.string().meta({
+  description: "Имя",
+  example: "Alice",
+});
+```
+
+---
+layout: two-cols-header
+---
+
+# 7. Нативная схема для файлов
+
+`z.file()` заменяет ручную комбинацию `instanceof(File)` и нескольких `refine()`.
+
+::left::
+
+## Было: Zod 3
+
+```ts {all|3|4-9}
+import * as z from "zod";
+
+const fileSchema = z
+  .instanceof(File)
+  .refine((file) => file.size <= 5 * 1024 * 1024, {
+    message: "Файл не должен превышать 5MB",
+  })
+  .refine((file) => ["image/jpeg", "image/png"].includes(file.type), {
+    message: "Только JPEG и PNG",
+  });
+```
+
+::right::
+
+## Стало: Zod 4
+
+```ts {all|3|4|5|6}
+import * as z from "zod";
+
+const fileSchema = z
+  .file()
+  .min(1)
+  .max(5 * 1024 * 1024)
+  .mime(["image/jpeg", "image/png"]);
+```
+
+---
+
+# 8. TypeScript-ошибки стали понятнее
+
+Zod 4 упростил внутренние generic-типы. За счет этого TypeScript чаще показывает
+короткую ошибку по сути, а не длинную цепочку вложенных типов.
+
+```diff
+ const schema = z.object({ name: z.string() });
+ schema.parse(42);
+
+- TS Error: Argument of type 'number' is not assignable to parameter of type
+- '{ name: string } | Promise<...>' плюс длинная цепочка generic-типов
++ TS Error: Argument of type 'number' is not assignable to parameter of type
++ '{ name: string }'
+```
+
+Для разработчика это означает меньше времени на чтение type noise и быстрее поиск
+реальной ошибки.
+
+---
+
+# 9. Новая стратегия версионирования
+
+Zod 4 использует подход с subpath imports. Это снижает риск “лавины обновлений” в
+экосистеме и помогает мигрировать постепенно.
+
+```ts {all|2-3|6}
+// Можно использовать обе версии в одном проекте во время миграции
+import * as z3 from "zod/v3";
+import * as z4 from "zod/v4";
+
+// После перехода основной импорт указывает на Zod 4
+import * as z from "zod";
+```
+
+<v-clicks>
+
+- библиотекам проще поддерживать совместимость;
+- приложения могут мигрировать по частям;
+- новый major не обязан ломать весь dependency graph сразу.
+
+</v-clicks>
+
+---
+
+# 10. Новое в Zod 4.3
+
+Появились дополнительные API, закрывающие частые сценарии.
+
+| API                 | Для чего нужен                                     |
+| ------------------- | -------------------------------------------------- |
+| `fromJSONSchema`    | конвертация JSON Schema обратно в Zod-схему        |
+| `z.xor()`           | exclusive union: либо один вариант, либо другой    |
+| `z.looseRecord()`   | record с менее строгими ключами                    |
+| `z.exactOptional()` | точное различие `undefined` и отсутствующего ключа |
+| `z.slugify()`       | transform для slug-строк                           |
+
+---
+layout: two-cols-header
+---
+
+# Zod 4.3: пример
+
+::left::
+
+## JSON Schema → Zod
+
+```ts {all|3-9|11}
+import * as z from "zod";
+
+const jsonSchema = {
+  type: "object",
+  properties: {
+    name: { type: "string" },
+    age: { type: "number" },
   },
 };
+
+const zodSchema = z.fromJSONSchema(jsonSchema);
 ```
 
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: "John Doe",
-      books: ["Vue 2 - Advanced Guide", "Vue 3 - Basic Guide", "Vue 4 - The Mystery"],
-    },
-  }),
-};
-```
+::right::
 
-Non-code blocks are ignored.
+## XOR-схема
 
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: "John Doe",
-  books: ["Vue 2 - Advanced Guide", "Vue 3 - Basic Guide", "Vue 4 - The Mystery"],
-};
-</script>
+```ts {all|3-6}
+import * as z from "zod";
+
+const schema = z.xor(
+  z.object({ type: z.literal("a"), valueA: z.string() }),
+  z.object({ type: z.literal("b"), valueB: z.number() })
+);
 ```
-````
 
 ---
 
-# Components
+# Как обновиться
 
-<div grid="~ cols-2 gap-4">
-<div>
+Минимальный шаг для приложения:
 
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>`, `<BlueSky/>`, and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
+```bash
+npm install zod@^4.0.0
 ```
 
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
+Если проект на pnpm:
 
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
+```bash
+pnpm add zod@^4.0.0
 ```
 
-<Tweet id="1390115482657726468" scale="0.65" />
+<v-clicks>
 
-</div>
-</div>
+- сначала прогнать typecheck и тесты;
+- отдельно проверить места с `.extend()`, `.omit()`, кастомными error maps;
+- для библиотек рассмотреть subpath imports `zod/v3` и `zod/v4`;
+- breaking changes сверить с Migration Guide.
 
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
+</v-clicks>
 
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
----
-class: px-20
----
-
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
-check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
-
----
-
-# Clicks Animations
-
-You can add `v-click` to elements to add a click animation.
-
-<div v-click>
-
-This shows up when you press <kbd>space</kbd> or <kbd>right</kbd>, or click outside the slide on the right.
-
-```html
-<div v-click>This shows up when you trigger a click animation.</div>
-```
-
-</div>
-
-<p v-click>
-You can also add modifiers to change the animation:
-</p>
-
-<div class="grid gap-3 mt-4 text-sm" style="grid-template-columns: repeat(3, 1fr) 1.5fr 1fr">
-  <div v-after.up class="p-3 rounded border border-primary/20 bg-primary/10">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.up</div>
-    <div>Slide from bottom</div>
-  </div>
-  <div v-click.fade-in class="p-3 rounded border border-primary/30 bg-primary/15">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade-in</div>
-    <div>Fade in</div>
-  </div>
-  <div v-click.fade class="p-3 rounded border border-primary/40 bg-primary/20">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade</div>
-    <div>Dim (0.5 opacity)</div>
-  </div>
-  <div v-click.fade.right.scale class="p-3 rounded border border-primary/50 bg-primary/25">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade.right.scale</div>
-    <div>Composed</div>
-  </div>
-  <div v-click.none class="p-3 rounded border border-primary/60 bg-primary/30">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.none</div>
-    <div>No transition</div>
-  </div>
-</div>
-
-<v-click>
-
-The <span v-mark.red="7"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="8">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
-
-```html
-<span v-mark.underline.orange>inline markers</span>
-```
-
-</v-click>
-
-<div v-click mt-12>
-
-[Learn more](https://sli.dev/guide/animations#click-animation)
-
-</div>
-
----
-
-# Motions
-
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
-
-```html
-<div v-motion :initial="{ x: -80 }" :enter="{ x: 0 }" :click-3="{ x: 80 }" :leave="{ x: 1000 }">
-  Slidev
-</div>
-```
-
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
-</div>
-
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
-
-<div
-  v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn more](https://sli.dev/guide/animations.html#motion)
-
-</div>
-
----
-
-# $\LaTeX$
-
-$\LaTeX$ is supported out-of-box. Powered by [$\KaTeX$](https://katex.org/).
-
-<div h-3 />
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-
-$$
-{1|3|all}
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0 \\
-\nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
-\nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\varepsilon_0\frac{\partial\vec{E}}{\partial t}
-\end{aligned}
-$$
-
-[Learn more](https://sli.dev/features/latex)
-
----
-
-# Diagrams
-
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
-
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
-</div>
-
-Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML Diagrams](https://sli.dev/features/plantuml)
-
----
-foo: bar
-dragPos:
-  square: 666,37,167,_,-16
----
-
-# Draggable Elements
-
-Double-click on the draggable elements to edit their positions.
-
-<br>
-
-###### Directive Usage
-
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-```
-
-<br>
-
-###### Component Usage
-
-```md
-<v-drag text-3xl>
-  <div class="i-carbon:arrow-up" />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
-
-<v-drag pos="668,196,261,_,-15">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
-  </div>
-</v-drag>
-
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-
-###### Draggable Arrow
-
-```md
-<v-drag-arrow two-way />
-```
-
-<v-drag-arrow pos="67,452,253,46" two-way op70 />
-
----
-src: ./pages/imported-slides.md
-hide: false
----
-
----
-
-# Monaco Editor
-
-Slidev provides built-in Monaco Editor support.
-
-Add `{monaco}` to the code block to turn it into an editor:
-
-```ts {monaco}
-import { ref } from "vue";
-import { emptyArray } from "./external";
-
-const arr = ref(emptyArray(10));
-```
-
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
-
-```ts {monaco-run}
-import { version } from "vue";
-import { emptyArray, sayHello } from "./external";
-
-sayHello();
-console.log(`vue ${version}`);
-console.log(emptyArray<number>(10).reduce((fib) => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]));
-```
+[Migration Guide](https://zod.dev/v4/changelog)
 
 ---
 layout: center
 class: text-center
 ---
 
-# Learn More
+# Итог
 
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
+Zod 4 — это не “новая библиотека”, а более быстрый и практичный фундамент для уже
+знакомого подхода к schema validation.
 
-<PoweredBySlidev mt-10 />
+<div class="mt-10 text-2xl">
+  Быстрее runtime · легче TypeScript · меньше bundle · лучше tooling
+</div>
