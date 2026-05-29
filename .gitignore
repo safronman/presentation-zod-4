@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Slidev generated files
+components.d.ts
+.remote-assets/
+.vite-inspect/
+
+# Vite cache
+node_modules/.vite/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

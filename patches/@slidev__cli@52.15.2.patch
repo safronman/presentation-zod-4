@@ -1,0 +1,47 @@
+diff --git a/dist/shared-CmTSrQGO.mjs b/dist/shared-CmTSrQGO.mjs
+index c3889430c62764db69edf1fa68c89b6ed788b883..d13cce3e36ccc10a759d685085798a85dcd2ae14 100644
+--- a/dist/shared-CmTSrQGO.mjs
++++ b/dist/shared-CmTSrQGO.mjs
+@@ -133,12 +133,12 @@ function getBodyJson(req) {
+ 	});
+ }
+ function getImportGlobRelativePath(from, to) {
+-	const normalizedFrom = slash(from);
+-	const normalizedTo = slash(to);
++	const normalizedFrom = slash(from).replace(/^\/([A-Z]:\/)/i, "$1");
++	const normalizedTo = slash(to).replace(/^\/([A-Z]:\/)/i, "$1");
+ 	return slash(RE_WINDOWS_DRIVE.test(normalizedFrom) || RE_WINDOWS_DRIVE.test(normalizedTo) ? win32.relative(normalizedFrom, normalizedTo) : relative(normalizedFrom, normalizedTo));
+ }
+ function makeAbsoluteImportGlob(self, globs, options = {}, baseRoot) {
+-	const root = baseRoot && globs.some((glob) => RE_WINDOWS_DRIVE.test(slash(glob))) ? baseRoot : void 0;
++	const root = baseRoot && globs.some((glob) => RE_WINDOWS_DRIVE.test(slash(glob))) ? slash(baseRoot).replace(/^\/([A-Z]:\/)/i, "$1") : void 0;
+ 	const relativeGlobs = globs.map((glob) => {
+ 		const relativeGlob = getImportGlobRelativePath(root ?? self, glob);
+ 		return root && !relativeGlob.startsWith(".") && !RE_WINDOWS_DRIVE.test(relativeGlob) ? `./${relativeGlob}` : relativeGlob;
+@@ -1250,11 +1250,21 @@ const templateConditionalStyles = {
+ 	id: id$1,
+ 	async getContent({ data, roots, userRoot }) {
+ 		const imports = [];
+-		for (const root of roots) imports.push(makeAbsoluteImportGlob(id$1, [
+-			join(root, "styles/index.{ts,js,css}"),
+-			join(root, "styles.{ts,js,css}"),
+-			join(root, "style.{ts,js,css}")
+-		], {}, userRoot));
++		for (const root of roots) {
++			for (const file of [
++				join(root, "styles/index.ts"),
++				join(root, "styles/index.js"),
++				join(root, "styles/index.css"),
++				join(root, "styles.ts"),
++				join(root, "styles.js"),
++				join(root, "styles.css"),
++				join(root, "style.ts"),
++				join(root, "style.js"),
++				join(root, "style.css")
++			]) {
++				if (existsSync(file)) imports.push(`import "${toAtFS(file)}"`);
++			}
++		}
+ 		if (data.features.katex) imports.push(`import "${await resolveImportUrl("katex/dist/katex.min.css")}"`);
+ 		return imports.join("\n");
+ 	}
