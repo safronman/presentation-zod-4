@@ -125,7 +125,7 @@ layoutClass: gap-16
 You can use the `Toc` component to generate a table of contents for your slides:
 
 ```html
-<Toc minDepth="1" maxDepth="1" />
+<Toc minDepth="1" maxDepth="2" />
 ```
 
 The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
@@ -560,7 +560,7 @@ Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML D
 ---
 foo: bar
 dragPos:
-  square: 691,32,167,_,-16
+  square: 666,37,167,_,-16
 ---
 
 # Draggable Elements
@@ -586,7 +586,7 @@ Double-click on the draggable elements to edit their positions.
 </v-drag>
 ```
 
-<v-drag pos="663,206,261,_,-15">
+<v-drag pos="668,196,261,_,-15">
   <div text-center text-3xl border border-main rounded>
     Double-click me!
   </div>
