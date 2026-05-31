@@ -99,11 +99,15 @@
   border: 1px solid var(--zod-border);
   border-radius: 8px;
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+  font-size: 10px !important;
+  line-height: 1.45 !important;
   overflow: visible !important;
   white-space: pre;
 }
 
 .slidev-layout pre code {
+  font-size: inherit !important;
+  line-height: inherit !important;
   white-space: pre;
 }
 
@@ -111,11 +115,25 @@
   max-width: 100%;
   max-height: min(18rem, calc(100% - 13rem)) !important;
   margin-bottom: 3rem;
+  font-size: 10px !important;
   overflow: auto !important;
 }
 
 .slidev-layout .slidev-code-wrapper .slidev-code {
+  font-size: inherit !important;
+  line-height: 1.45 !important;
   overflow: visible !important;
+}
+
+.slidev-layout .slidev-code-wrapper pre {
+  font-size: inherit !important;
+}
+
+.slidev-layout .slidev-code-wrapper .slidev-code code,
+.slidev-layout .slidev-code-wrapper .slidev-code .line,
+.slidev-layout .slidev-code-wrapper .slidev-code span {
+  font-size: inherit !important;
+  line-height: inherit !important;
 }
 
 .slidev-layout :not(pre) > code {
@@ -149,7 +167,7 @@
 
 .slidev-layout.two-cols-header pre {
   max-width: 100%;
-  font-size: 0.64rem;
+  font-size: 10px !important;
   line-height: 1.35;
 }
 
