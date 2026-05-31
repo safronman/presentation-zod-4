@@ -1,5 +1,5 @@
 diff --git a/dist/shared-CmTSrQGO.mjs b/dist/shared-CmTSrQGO.mjs
-index c3889430c62764db69edf1fa68c89b6ed788b883..ec1d730348b6b70bf1e346307a7c1cff758e6bd8 100644
+index c3889430c62764db69edf1fa68c89b6ed788b883..550b6746ab6b07b2c912efa207c1d043305b2695 100644
 --- a/dist/shared-CmTSrQGO.mjs
 +++ b/dist/shared-CmTSrQGO.mjs
 @@ -70,7 +70,10 @@ function MarkdownItLink(md) {
@@ -59,3 +59,29 @@ index c3889430c62764db69edf1fa68c89b6ed788b883..ec1d730348b6b70bf1e346307a7c1cff
  		if (data.features.katex) imports.push(`import "${await resolveImportUrl("katex/dist/katex.min.css")}"`);
  		return imports.join("\n");
  	}
+@@ -1405,10 +1419,21 @@ function createSetupTemplate(name) {
+ 	const id$2 = `/@slidev/setups/${name}`;
+ 	return {
+ 		id: id$2,
+-		getContent({ roots, userRoot }) {
+-			return `export default [${roots.map((root) => {
+-				return `Object.values(${makeAbsoluteImportGlob(id$2, [join(root, `setup/${name}.{ts,js,mts,mjs}`)], { import: "default" }, userRoot)})[0]`;
+-			}).join(", ")}].filter(Boolean)`;
++		getContent({ roots }) {
++			const imports = [];
++			const setups = [];
++			for (const root of roots) {
++				for (const ext of ["ts", "js", "mts", "mjs"]) {
++					const file = join(root, `setup/${name}.${ext}`);
++					if (existsSync(file)) {
++						const index = imports.length;
++						imports.push(`import __setup_${index} from "${toAtFS(file)}"`);
++						setups.push(`__setup_${index}`);
++						break;
++					}
++				}
++			}
++			return `${imports.join("\n")}\nexport default [${setups.join(", ")}].filter(Boolean)`;
+ 		}
+ 	};
+ }

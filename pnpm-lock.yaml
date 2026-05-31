@@ -5,14 +5,14 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  "@slidev/cli@52.15.2": c96d3aa8d3d4a27d3c14787b503f859762163218d4f5aa897fdd94b5fac03493
+  "@slidev/cli@52.15.2": 299f7ad5488f0f983dcfda20b006551f648a018ed91b0d29aea85385c699ea13
 
 importers:
   .:
     dependencies:
       "@slidev/cli":
         specifier: ^52.15.2
-        version: 52.15.2(patch_hash=c96d3aa8d3d4a27d3c14787b503f859762163218d4f5aa897fdd94b5fac03493)(@nuxt/kit@3.21.6)(@types/markdown-it@14.1.2)(@types/node@22.19.19)(@vue/compiler-sfc@3.5.35)(markdown-it@14.2.0)(postcss@8.5.15)
+        version: 52.15.2(patch_hash=299f7ad5488f0f983dcfda20b006551f648a018ed91b0d29aea85385c699ea13)(@nuxt/kit@3.21.6)(@types/markdown-it@14.1.2)(@types/node@22.19.19)(@vue/compiler-sfc@3.5.35)(markdown-it@14.2.0)(postcss@8.5.15)
       "@slidev/theme-default":
         specifier: latest
         version: 0.25.0
@@ -5318,7 +5318,7 @@ snapshots:
 
   "@shikijs/vscode-textmate@10.0.2": {}
 
-  "@slidev/cli@52.15.2(patch_hash=c96d3aa8d3d4a27d3c14787b503f859762163218d4f5aa897fdd94b5fac03493)(@nuxt/kit@3.21.6)(@types/markdown-it@14.1.2)(@types/node@22.19.19)(@vue/compiler-sfc@3.5.35)(markdown-it@14.2.0)(postcss@8.5.15)":
+  "@slidev/cli@52.15.2(patch_hash=299f7ad5488f0f983dcfda20b006551f648a018ed91b0d29aea85385c699ea13)(@nuxt/kit@3.21.6)(@types/markdown-it@14.1.2)(@types/node@22.19.19)(@vue/compiler-sfc@3.5.35)(markdown-it@14.2.0)(postcss@8.5.15)":
     dependencies:
       "@antfu/ni": 30.1.0
       "@antfu/utils": 9.3.0
