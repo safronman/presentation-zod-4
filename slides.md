@@ -14,28 +14,15 @@ transition: slide-left
 comark: true
 duration: 35min
 lineNumbers: true
+colorSchema: dark
+highlighter: shiki
+shiki:
+  theme: github-dark
 ---
 
-<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/images/zod-cover-unsplash.jpg')"></div>
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/images/zod-cover.png')"></div>
 <div class="absolute inset-0 bg-[#050914]/82"></div>
-<div class="absolute inset-0 opacity-35" style="background-image: linear-gradient(rgba(65, 141, 255, 0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(65, 141, 255, 0.18) 1px, transparent 1px); background-size: 42px 42px;"></div>
-<div class="absolute bottom-12 right-12 w-[520px] rounded border border-[#418DFF]/35 bg-black/45 p-5 font-mono text-xs leading-5 text-[#9cc5ff] shadow-2xl shadow-[#418DFF]/10">
-  <div class="mb-3 flex gap-2">
-    <span class="h-2.5 w-2.5 rounded-full bg-[#418DFF]"></span>
-    <span class="h-2.5 w-2.5 rounded-full bg-slate-500"></span>
-    <span class="h-2.5 w-2.5 rounded-full bg-slate-600"></span>
-  </div>
-  <div class="space-y-1 opacity-85">
-    <div><span class="text-slate-500">import</span> * <span class="text-slate-500">as</span> z <span class="text-slate-500">from</span> <span class="text-white">"zod"</span>;</div>
-    <div>&nbsp;</div>
-    <div><span class="text-slate-500">const</span> User = z.object({</div>
-    <div class="pl-4">name: z.string(),</div>
-    <div class="pl-4">age: z.number().int(),</div>
-    <div>});</div>
-    <div>&nbsp;</div>
-    <div>User.parse({ name: <span class="text-white">"Alice"</span>, age: 30 });</div>
-  </div>
-</div>
+<div class="absolute inset-0 opacity-25" style="background-image: linear-gradient(rgba(65, 141, 255, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(65, 141, 255, 0.12) 1px, transparent 1px); background-size: 42px 42px;"></div>
 
 <div class="relative z-10 flex h-full flex-col justify-center pr-[420px] text-white">
   <div class="mb-5 w-max rounded-full border border-[#418DFF]/50 bg-[#418DFF]/10 px-4 py-1 text-sm font-semibold text-[#9cc5ff]">
@@ -64,10 +51,6 @@ lineNumbers: true
       <div class="text-3xl font-bold text-[#418DFF]">v3 + v4</div>
       <div class="text-sm text-slate-300">параллельные импорты</div>
     </div>
-  </div>
-
-  <div class="absolute bottom-5 left-8 text-xs text-slate-400">
-    Фото: Bernd Dittrich / Unsplash
   </div>
 </div>
 
@@ -184,13 +167,7 @@ const e = d.extend({ a: z.string() });
 
 Для минимального скрипта с `z.boolean()` gzip-размер заметно сократился.
 
-```mermaid
-xychart-beta
-  title "Bundle size, gzip"
-  x-axis ["Zod 3", "Zod 4"]
-  y-axis "KB" 0 --> 14
-  bar [12.47, 5.36]
-```
+<BundleChart />
 
 Главный вывод: меньше JavaScript в браузере без переписывания пользовательского кода.
 
@@ -486,14 +463,23 @@ pnpm add zod@^4.0.0
 
 ---
 layout: center
-class: text-center
+class: text-center final-slide
 ---
 
-# Итог
+<div
+  class="absolute inset-0 bg-cover bg-center"
+  style="background-image: url('/images/zod-cover-2.png')"
+></div>
+<div class="absolute inset-0 bg-[#050914]/72"></div>
 
-Zod 4 — это не “новая библиотека”, а более быстрый и практичный фундамент для уже
-знакомого подхода к schema validation.
+<div class="relative z-10 mx-auto max-w-5xl text-center text-white">
+  <h1 class="text-7xl font-bold leading-tight">Итог</h1>
 
-<div class="mt-10 text-2xl">
-  Быстрее runtime · легче TypeScript · меньше bundle · лучше tooling
+  <p class="mt-8 text-3xl leading-11 text-white">
+    Zod 4 — это не “новая библиотека”, а более быстрый и практичный фундамент для уже знакомого подхода к schema validation.
+  </p>
+
+  <div class="mt-12 text-3xl font-semibold text-[#9cc5ff]">
+    Быстрее runtime · легче TypeScript · меньше bundle · лучше tooling
+  </div>
 </div>

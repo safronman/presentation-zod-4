@@ -9,7 +9,7 @@
 Переписанный движок парсинга показывает кратный прирост скорости:
 
 | Тип данных | Ускорение |
-|------------|-----------|
+| ---------- | --------- |
 | Строки     | 14.7×     |
 | Массивы    | 7.4×      |
 | Объекты    | 6.5×      |
@@ -65,8 +65,8 @@ const e = d.extend({ a: z.string() });
 
 Базовый бандл (gzip) для минимального скрипта с `z.boolean()`:
 
-| Версия | Размер |
-|--------|--------|
+| Версия | Размер   |
+| ------ | -------- |
 | Zod 3  | 12.47 КБ |
 | Zod 4  | 5.36 КБ  |
 
@@ -186,13 +186,10 @@ const nameSchema = z.string().meta({ description: "Имя", example: "Alice" });
 // Zod 3 не имел нативной поддержки File — приходилось использовать z.instanceof(File)
 import * as z from "zod";
 
-const fileSchema = z.instanceof(File).refine(
-  (file) => file.size <= 5 * 1024 * 1024,
-  { message: "Файл не должен превышать 5MB" }
-).refine(
-  (file) => ["image/jpeg", "image/png"].includes(file.type),
-  { message: "Только JPEG и PNG" }
-);
+const fileSchema = z
+  .instanceof(File)
+  .refine((file) => file.size <= 5 * 1024 * 1024, { message: "Файл не должен превышать 5MB" })
+  .refine((file) => ["image/jpeg", "image/png"].includes(file.type), { message: "Только JPEG и PNG" });
 ```
 
 **Стало (Zod 4) — нативный z.file() с удобным API:**
@@ -200,10 +197,11 @@ const fileSchema = z.instanceof(File).refine(
 ```ts
 import * as z from "zod";
 
-const fileSchema = z.file()
-  .min(1)                              // минимальный размер в байтах
-  .max(5 * 1024 * 1024)               // максимум 5MB
-  .mime(["image/jpeg", "image/png"]);  // допустимые MIME-типы
+const fileSchema = z
+  .file()
+  .min(1) // минимальный размер в байтах
+  .max(5 * 1024 * 1024) // максимум 5MB
+  .mime(["image/jpeg", "image/png"]); // допустимые MIME-типы
 ```
 
 ---
