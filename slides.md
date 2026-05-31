@@ -462,7 +462,6 @@ pnpm add zod@^4.0.0
 [Migration Guide](https://zod.dev/v4/changelog)
 
 ---
-layout: center
 class: text-center final-slide
 ---
 
