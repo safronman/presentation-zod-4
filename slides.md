@@ -16,22 +16,58 @@ duration: 35min
 lineNumbers: true
 ---
 
-# Что нового в Zod 4
-
-Доклад для разработчиков: что изменилось, зачем это важно и как выглядит код.
-
-<div class="mt-12 grid grid-cols-3 gap-4 text-center">
-  <div class="rounded border border-main p-4">
-    <div class="text-3xl font-bold">14.7x</div>
-    <div class="opacity-70">быстрее строки</div>
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/images/zod-cover-unsplash.jpg')"></div>
+<div class="absolute inset-0 bg-[#050914]/82"></div>
+<div class="absolute inset-0 opacity-35" style="background-image: linear-gradient(rgba(65, 141, 255, 0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(65, 141, 255, 0.18) 1px, transparent 1px); background-size: 42px 42px;"></div>
+<div class="absolute bottom-12 right-12 w-[520px] rounded border border-[#418DFF]/35 bg-black/45 p-5 font-mono text-xs leading-5 text-[#9cc5ff] shadow-2xl shadow-[#418DFF]/10">
+  <div class="mb-3 flex gap-2">
+    <span class="h-2.5 w-2.5 rounded-full bg-[#418DFF]"></span>
+    <span class="h-2.5 w-2.5 rounded-full bg-slate-500"></span>
+    <span class="h-2.5 w-2.5 rounded-full bg-slate-600"></span>
   </div>
-  <div class="rounded border border-main p-4">
-    <div class="text-3xl font-bold">-57%</div>
-    <div class="opacity-70">gzip bundle</div>
+  <div class="space-y-1 opacity-85">
+    <div><span class="text-slate-500">import</span> * <span class="text-slate-500">as</span> z <span class="text-slate-500">from</span> <span class="text-white">"zod"</span>;</div>
+    <div>&nbsp;</div>
+    <div><span class="text-slate-500">const</span> User = z.object({</div>
+    <div class="pl-4">name: z.string(),</div>
+    <div class="pl-4">age: z.number().int(),</div>
+    <div>});</div>
+    <div>&nbsp;</div>
+    <div>User.parse({ name: <span class="text-white">"Alice"</span>, age: 30 });</div>
   </div>
-  <div class="rounded border border-main p-4">
-    <div class="text-3xl font-bold">v3 + v4</div>
-    <div class="opacity-70">параллельные импорты</div>
+</div>
+
+<div class="relative z-10 flex h-full flex-col justify-center pr-[420px] text-white">
+  <div class="mb-5 w-max rounded-full border border-[#418DFF]/50 bg-[#418DFF]/10 px-4 py-1 text-sm font-semibold text-[#9cc5ff]">
+    Zod 4 для разработчиков
+  </div>
+
+  <h1 class="mb-5 text-6xl font-bold leading-tight">
+    Что нового<br />
+    в <span class="text-[#418DFF]">Zod 4</span>
+  </h1>
+
+  <p class="max-w-2xl text-xl leading-8 text-slate-200">
+    Что изменилось, зачем это важно и как выглядит код после обновления.
+  </p>
+
+  <div class="mt-12 grid max-w-3xl grid-cols-3 gap-4 text-center">
+    <div class="rounded border border-[#418DFF]/35 bg-white/5 p-4 backdrop-blur">
+      <div class="text-3xl font-bold text-[#418DFF]">14.7x</div>
+      <div class="text-sm text-slate-300">быстрее строки</div>
+    </div>
+    <div class="rounded border border-[#418DFF]/35 bg-white/5 p-4 backdrop-blur">
+      <div class="text-3xl font-bold text-[#418DFF]">-57%</div>
+      <div class="text-sm text-slate-300">gzip bundle</div>
+    </div>
+    <div class="rounded border border-[#418DFF]/35 bg-white/5 p-4 backdrop-blur">
+      <div class="text-3xl font-bold text-[#418DFF]">v3 + v4</div>
+      <div class="text-sm text-slate-300">параллельные импорты</div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-5 left-8 text-xs text-slate-400">
+    Фото: Bernd Dittrich / Unsplash
   </div>
 </div>
 
