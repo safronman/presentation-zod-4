@@ -1,3 +1,8 @@
+@import "@fontsource/manrope/400.css";
+@import "@fontsource/manrope/500.css";
+@import "@fontsource/manrope/600.css";
+@import "@fontsource/manrope/700.css";
+
 :root {
   --zod-blue: #418dff;
   --zod-bg: #050914;
@@ -17,6 +22,7 @@
   position: relative;
   overflow: hidden;
   padding-bottom: 3.25rem;
+  font-family: "Manrope", sans-serif;
   background:
     linear-gradient(rgba(65, 141, 255, 0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(65, 141, 255, 0.06) 1px, transparent 1px),
@@ -37,6 +43,7 @@
 .slidev-layout h1,
 .slidev-layout h2,
 .slidev-layout h3 {
+  font-family: "Manrope", sans-serif;
   color: #ffffff !important;
   text-shadow: 0 0 24px rgba(65, 141, 255, 0.1);
 }

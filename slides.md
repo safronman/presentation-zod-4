@@ -140,7 +140,7 @@ layout: two-cols-header
 
 ::left::
 
-## Было: Zod 3
+### 🧱 Было: Zod 3
 
 ```ts
 import * as z from "zod";
@@ -156,7 +156,7 @@ const d = c.omit({ a: true });
 
 ::right::
 
-## Стало: Zod 4
+### ⚡ Стало: Zod 4
 
 ```ts
 import * as z from "zod";
@@ -189,7 +189,7 @@ tree-shakes и особенно полезен на фронтенде, где �
 
 ::left::
 
-## Обычный API
+### 🧩 Обычный API
 
 ```ts
 import * as z from "zod";
@@ -203,7 +203,7 @@ const obj = z.object({ name: z.string() }).extend({
 
 ::right::
 
-## Zod Mini
+### 🪶 Zod Mini
 
 ```ts
 import * as z from "zod/mini";
@@ -311,7 +311,7 @@ layout: two-cols-header
 
 `z.file()` заменяет ручную комбинацию `instanceof(File)` и нескольких `refine()`.
 
-### Было: Zod 3
+### 🧱 Было: Zod 3
 
 ```ts
 import * as z from "zod";
@@ -328,7 +328,7 @@ const fileSchema = z
 
 <SlideSpacer />
   
-### Стало: Zod 4
+### ⚡ Стало: Zod 4
 
 ```ts
 import * as z from "zod";
