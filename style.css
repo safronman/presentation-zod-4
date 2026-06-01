@@ -242,6 +242,22 @@
   opacity: 0.25;
 }
 
+.perf-bar {
+  width: var(--bar-width);
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--zod-blue), #9cc5ff);
+  box-shadow: 0 0 24px rgba(65, 141, 255, 0.35);
+  transition:
+    transform 700ms ease,
+    opacity 700ms ease;
+}
+
+.slidev-vclick-hidden .perf-bar,
+.perf-bar.slidev-vclick-hidden {
+  transform: scaleX(0);
+  opacity: 0.25;
+}
+
 .slidev-layout.final-slide {
   padding: 0 !important;
   background: #050914 !important;
