@@ -100,7 +100,7 @@ User.parse({ name: "Alice", age: 30 });
 # TypeScript inference
 
 Zod строит runtime-схему, а TypeScript получает из нее статический тип через
-`z.infer`. TwoSlash показывает результат вывода типа прямо на слайде.
+`z.infer`.
 
 ```ts twoslash
 import * as z from "zod";
