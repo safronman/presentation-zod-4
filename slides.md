@@ -25,7 +25,7 @@ shiki:
 <div class="absolute inset-0 opacity-25" style="background-image: linear-gradient(rgba(65, 141, 255, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(65, 141, 255, 0.12) 1px, transparent 1px); background-size: 42px 42px;"></div>
 
 <div
-  class="absolute left-[76%] top-[60%] z-10 h-52 w-52 -translate-x-1/2 -translate-y-1/2 bg-contain bg-center bg-no-repeat drop-shadow-[0_0_42px_rgba(65,141,255,0.42)]"
+  class="absolute left-[76%] top-[55%] z-10 h-52 w-52 -translate-x-1/2 -translate-y-1/2 bg-contain bg-center bg-no-repeat drop-shadow-[0_0_42px_rgba(65,141,255,0.42)]"
   aria-label="Zod"
   style="background-image: url('/images/logo.png')"
 ></div>
@@ -42,15 +42,15 @@ shiki:
 
   <div class="mt-12 grid max-w-3xl grid-cols-3 gap-4 text-center">
     <div class="rounded border border-[#418DFF]/35 bg-white/5 p-4 backdrop-blur">
-      <div class="text-3xl font-bold text-[#418DFF]">14.7x</div>
+      <div class="text-2xl font-bold text-[#418DFF]">14.7x</div>
       <div class="text-sm text-slate-300">быстрее строки</div>
     </div>
     <div class="rounded border border-[#418DFF]/35 bg-white/5 p-4 backdrop-blur">
-      <div class="text-3xl font-bold text-[#418DFF]">-57%</div>
+      <div class="text-2xl font-bold text-[#418DFF]">-57%</div>
       <div class="text-sm text-slate-300">gzip bundle</div>
     </div>
     <div class="rounded border border-[#418DFF]/35 bg-white/5 p-4 backdrop-blur">
-      <div class="text-3xl font-bold text-[#418DFF]">v3 + v4</div>
+      <div class="text-2xl font-bold text-[#418DFF]">v3 + v4</div>
       <div class="text-sm text-slate-300">параллельные импорты</div>
     </div>
   </div>
@@ -93,6 +93,30 @@ const User = z.object({
 });
 
 User.parse({ name: "Alice", age: 30 });
+```
+
+---
+
+# TypeScript inference
+
+Zod строит runtime-схему, а TypeScript получает из нее статический тип через
+`z.infer`. TwoSlash показывает результат вывода типа прямо на слайде.
+
+```ts twoslash
+import * as z from "zod";
+
+const UserSchema = z.object({
+  name: z.string(),
+  age: z.number(),
+});
+
+type User = z.infer<typeof UserSchema>;
+//   ^?
+
+const user: User = {
+  name: "Alice",
+  age: 30,
+};
 ```
 
 ---
@@ -298,6 +322,7 @@ const nameSchema = z.string().meta({
   description: "Имя",
   example: "Alice",
 });
+
 ```
 
 ---
@@ -312,7 +337,7 @@ layout: two-cols-header
 
 ## Было: Zod 3
 
-```ts 
+```ts
 import * as z from "zod";
 
 const fileSchema = z
@@ -329,7 +354,7 @@ const fileSchema = z
 
 ## Стало: Zod 4
 
-```ts 
+```ts
 import * as z from "zod";
 
 const fileSchema = z
@@ -359,107 +384,15 @@ Zod 4 упростил внутренние generic-типы. За счет эт
 Для разработчика это означает меньше времени на чтение type noise и быстрее поиск
 реальной ошибки.
 
----
-
-# 9. Новая стратегия версионирования
-
-Zod 4 использует подход с subpath imports. Это снижает риск “лавины обновлений” в
-экосистеме и помогает мигрировать постепенно.
-
-```ts 
-// Можно использовать обе версии в одном проекте во время миграции
-import * as z3 from "zod/v3";
-import * as z4 from "zod/v4";
-
-// После перехода основной импорт указывает на Zod 4
-import * as z from "zod";
-```
-
-<v-clicks>
-
-- библиотекам проще поддерживать совместимость;
-- приложения могут мигрировать по частям;
-- новый major не обязан ломать весь dependency graph сразу.
-
-</v-clicks>
-
----
-
-# 10. Новое в Zod 4.3
-
-Появились дополнительные API, закрывающие частые сценарии.
-
-| API                 | Для чего нужен                                     |
-| ------------------- | -------------------------------------------------- |
-| `fromJSONSchema`    | конвертация JSON Schema обратно в Zod-схему        |
-| `z.xor()`           | exclusive union: либо один вариант, либо другой    |
-| `z.looseRecord()`   | record с менее строгими ключами                    |
-| `z.exactOptional()` | точное различие `undefined` и отсутствующего ключа |
-| `z.slugify()`       | transform для slug-строк                           |
-
----
-layout: two-cols-header
----
-
-# Zod 4.3: пример
-
-::left::
-
-## JSON Schema → Zod
-
-```ts 
+```ts twoslash
 import * as z from "zod";
 
-const jsonSchema = {
-  type: "object",
-  properties: {
-    name: { type: "string" },
-    age: { type: "number" },
-  },
-};
+const schema = z.object({ name: z.string() });
+type User = z.infer<typeof schema>;
 
-const zodSchema = z.fromJSONSchema(jsonSchema);
+// @errors: 2322
+const user: User = { name: 42 };
 ```
-
-::right::
-
-## XOR-схема
-
-```ts 
-import * as z from "zod";
-
-const schema = z.xor(
-  z.object({ type: z.literal("a"), valueA: z.string() }),
-  z.object({ type: z.literal("b"), valueB: z.number() })
-);
-```
-
----
-
-# Как обновиться
-
-Минимальный шаг для приложения:
-
-```bash
-npm install zod@^4.0.0
-```
-
-Если проект на pnpm:
-
-```bash
-pnpm add zod@^4.0.0
-```
-
-<v-clicks>
-
-- сначала прогнать typecheck и тесты;
-- отдельно проверить места с `.extend()`, `.omit()`, кастомными error maps;
-- для библиотек рассмотреть subpath imports `zod/v3` и `zod/v4`;
-- breaking changes сверить с Migration Guide.
-
-</v-clicks>
-
-[🔗 Migration Guide](https://zod.dev/v4/changelog)
 
 ---
 class: text-center final-slide
