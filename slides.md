@@ -136,7 +136,7 @@ const schema = z.object({
 schema.parse({ name: "Alice", age: 30 });
 ```
 
-<div class="h-6"></div>
+<SlideSpacer />
 
 | Тип данных | Ускорение |
 | ---------- | --------- |
@@ -330,7 +330,6 @@ layout: two-cols-header
 
 `z.file()` заменяет ручную комбинацию `instanceof(File)` и нескольких `refine()`.
 
-
 ### Было: Zod 3
 
 ```ts
@@ -346,7 +345,7 @@ const fileSchema = z
   });
 ```
 
-<div class="h-6"></div>
+<SlideSpacer />
   
 ### Стало: Zod 4
 
