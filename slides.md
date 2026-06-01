@@ -473,14 +473,17 @@ class: text-center final-slide
 ></div>
 <div class="absolute inset-0 bg-[#050914]/72"></div>
 
-<div class="relative z-10 mx-auto max-w-5xl text-center text-white">
+<div class="relative z-10 mx-auto flex h-full max-w-5xl flex-col justify-center text-center text-white">
   <h1 class="text-7xl font-bold leading-tight">Итог</h1>
 
-  <p class="mt-8 text-3xl leading-11 text-white">
-    Zod 4 — это не “новая библиотека”, а более быстрый и практичный фундамент для уже знакомого подхода к schema validation.
+  <p class="mx-auto mt-8 max-w-3xl text-3xl !leading-[1.2] text-white">
+    Zod 4 — более быстрый и практичный фундамент для уже знакомого подхода к schema validation.
   </p>
 
-  <div class="mt-12 text-3xl font-semibold text-[#9cc5ff]">
-    Быстрее runtime · легче TypeScript · меньше bundle · лучше tooling
-  </div>
+  <ul class="mx-auto mt-12 grid max-w-3xl list-none grid-cols-2 gap-x-10 gap-y-4 pl-0 text-left text-3xl font-semibold text-[#9cc5ff]">
+    <li class="list-none">✅ Быстрее runtime</li>
+    <li class="list-none">✅ Легче TypeScript</li>
+    <li class="list-none">✅ Меньше bundle</li>
+    <li class="list-none">✅ Лучше tooling</li>
+  </ul>
 </div>
