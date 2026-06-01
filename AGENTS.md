@@ -54,3 +54,6 @@ slides when layout, theme, or rendered content changes.
 Do not remove `patches/@slidev__cli@52.15.2.patch` unless the Slidev dependency is
 upgraded and the Windows conditional-styles issue is verified fixed. Avoid committing
 generated `dist/` output or local dev logs.
+
+After each completed work iteration, suggest a concise git commit message that
+describes the task that was completed.
