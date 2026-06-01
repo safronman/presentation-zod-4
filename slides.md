@@ -126,7 +126,7 @@ const user: User = {
 Переписанный движок парсинга дает кратный прирост без изменения API.
 
 | Тип данных | Ускорение |
-|------------|-----------|
+| ---------- | --------- |
 | Строки     | 14.7x     |
 | Массивы    | 7.4x      |
 | Объекты    | 6.5x      |
@@ -259,13 +259,12 @@ layout: two-cols-header
 
 # 5. JSON Schema теперь встроен
 
-
 Раньше для генерации JSON Schema нужен был отдельный пакет. В Zod 4 это часть
 основного API.
 
- ❗ Вместо пакета `zodToJsonSchema` используется  нативный метод `toJSONSchema`
+❗ Вместо пакета `zodToJsonSchema` используется нативный метод `toJSONSchema`
 
-````md magic-move
+````md magic-move [schema.ts]
 ```ts
 import * as z from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
