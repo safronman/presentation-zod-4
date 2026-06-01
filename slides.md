@@ -20,18 +20,20 @@ shiki:
   theme: github-dark
 ---
 
-<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/images/zod-cover.png')"></div>
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/images/zod-cover-2.png')"></div>
 <div class="absolute inset-0 bg-[#050914]/82"></div>
 <div class="absolute inset-0 opacity-25" style="background-image: linear-gradient(rgba(65, 141, 255, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(65, 141, 255, 0.12) 1px, transparent 1px); background-size: 42px 42px;"></div>
 
-<div class="relative z-10 flex h-full flex-col justify-center pr-[420px] text-white">
-  <div class="mb-5 w-max rounded-full border border-[#418DFF]/50 bg-[#418DFF]/10 px-4 py-1 text-sm font-semibold text-[#9cc5ff]">
-    Zod 4 для разработчиков
-  </div>
+<div
+  class="absolute left-[76%] top-[60%] z-10 h-52 w-52 -translate-x-1/2 -translate-y-1/2 bg-contain bg-center bg-no-repeat drop-shadow-[0_0_42px_rgba(65,141,255,0.42)]"
+  aria-label="Zod"
+  style="background-image: url('/images/logo.png')"
+></div>
 
-  <h1 class="mb-5 text-6xl font-bold leading-tight">
-    Что нового<br />
-    в <span class="text-[#418DFF]">Zod 4</span>
+<div class="relative z-10 flex h-full w-[64%] flex-col justify-center px-16 py-14 text-white">
+
+  <h1 class="mb-5 whitespace-nowrap text-5xl font-bold leading-tight">
+    Что нового в <span class="text-[#418DFF]">Zod 4</span>
   </h1>
 
   <p class="max-w-2xl text-xl leading-8 text-slate-200">
