@@ -126,7 +126,7 @@ const user: User = {
 Переписанный движок парсинга дает кратный прирост без изменения API.
 
 | Тип данных | Ускорение |
-| ---------- | --------- |
+|------------|-----------|
 | Строки     | 14.7x     |
 | Массивы    | 7.4x      |
 | Объекты    | 6.5x      |
@@ -259,14 +259,14 @@ layout: two-cols-header
 
 # 5. JSON Schema теперь встроен
 
+
 Раньше для генерации JSON Schema нужен был отдельный пакет. В Zod 4 это часть
 основного API.
 
-::left::
+ ❗ Вместо пакета `zodToJsonSchema` используется  нативный метод `toJSONSchema`
 
-## Было: Zod 3
-
-```ts {2,9|all}
+````md magic-move
+```ts
 import * as z from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
@@ -278,10 +278,6 @@ const schema = z.object({
 const jsonSchema = zodToJsonSchema(schema);
 ```
 
-::right::
-
-## Стало: Zod 4
-
 ```ts
 import * as z from "zod";
 
@@ -292,6 +288,7 @@ const schema = z.object({
 
 const jsonSchema = z.toJSONSchema(schema);
 ```
+````
 
 ---
 
@@ -322,7 +319,6 @@ const nameSchema = z.string().meta({
   description: "Имя",
   example: "Alice",
 });
-
 ```
 
 ---
