@@ -376,9 +376,9 @@ class: text-center final-slide
 
 <div
   class="absolute inset-0 bg-cover bg-center"
-  style="background-image: url('/images/zod-cover-2.png')"
+  style="background-image: url('/images/zod-cover.png')"
 ></div>
-<div class="absolute inset-0 bg-[#050914]/72"></div>
+<div class="absolute inset-0 bg-[#050914]/90"></div>
 
 <div class="relative z-10 mx-auto flex h-full max-w-5xl flex-col justify-center text-center text-white">
   <h1 class="text-7xl font-bold leading-tight">Итог</h1>
